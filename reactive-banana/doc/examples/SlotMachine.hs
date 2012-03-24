@@ -77,8 +77,8 @@ data Win = Double | Triple
 
 -- payout for each win
 payout :: Win -> Money
-payout Double = 20
-payout Triple = 200
+payout Double = 5
+payout Triple = 20
 
 
 -- Set up the program logic in terms of events and behaviors.
@@ -109,8 +109,7 @@ setupNetwork (escoin,esplay) = compile $ do
         -- functions that change the accumulated state
         addCredit     = (+1)
         removeCredit  = subtract 1
-        addWin Double = (+5)
-        addWin Triple = (+20)
+        addWin win = (+(payout win))
         
         -- Event: does the player have enough money to play the game?
         emayplay :: Event Bool
